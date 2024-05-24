@@ -18,6 +18,11 @@ defmodule PrototypeWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    live "/video", VideoLive.Index, :index
+    live "/video/new", VideoLive.Index, :new
+    live "/video/:id/edit", VideoLive.Index, :edit
+    live "/video/:id", VideoLive.Show, :show
+    live "/video/:id/show/edit", VideoLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
