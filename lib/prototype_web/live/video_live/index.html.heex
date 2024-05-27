@@ -30,6 +30,13 @@
 </.table>
 
 <.modal :if={@live_action in [:new, :edit]} id="video-modal" show on_cancel={JS.patch(~p"/video")}>
+  <video controls width="250">
+    <source
+      src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+      type="video/mp4"
+    />
+  </video>
+
   <.live_component
     module={PrototypeWeb.VideoLive.FormComponent}
     id={@video.id || :new}

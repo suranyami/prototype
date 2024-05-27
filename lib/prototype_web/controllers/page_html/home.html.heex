@@ -1,4 +1,14 @@
 <.flash_group flash={@flash} />
+<header>
+  <div class="flex items-center justify-between border-b border-zinc-100 py-3 text-sm">
+    <div class="flex items-center gap-4">
+      <h3>Modal prototype</h3>
+    </div>
+  </div>
+</header>
+
 <div class="left-[40rem] fixed inset-y-0 right-0 z-0 hidden lg:block xl:left-[50rem]">
-  <.link navigate={~p"/video"}>Show</.link>
+  <.link navigate={~p"/video"}>
+    <.button>Show</.button>
+  </.link>
 </div>
