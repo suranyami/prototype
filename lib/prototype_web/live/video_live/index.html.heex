@@ -1,0 +1,48 @@
+<.header>
+  Listing Video
+  <:actions>
+    <.link patch={~p"/video/new"}>
+      <.button>New Video</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="video"
+  rows={@streams.video_collection}
+  row_click={fn {_id, video} -> JS.navigate(~p"/video/#{video}") end}
+>
+  <:col :let={{_id, video}} label="Videos"><%= video.videos %></:col>
+  <:action :let={{_id, video}}>
+    <div class="sr-only">
+      <.link navigate={~p"/video/#{video}"}>Show</.link>
+    </div>
+    <.link patch={~p"/video/#{video}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, video}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: video.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="video-modal" show on_cancel={JS.patch(~p"/video")}>
+  <video controls width="250">
+    <source
+      src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+      type="video/mp4"
+    />
+  </video>
+
+  <.live_component
+    module={PrototypeWeb.VideoLive.FormComponent}
+    id={@video.id || :new}
+    title={@page_title}
+    action={@live_action}
+    video={@video}
+    patch={~p"/video"}
+  />
+</.modal>

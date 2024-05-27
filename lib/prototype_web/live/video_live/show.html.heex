@@ -1,0 +1,26 @@
+<.header>
+  Video <%= @video.id %>
+  <:subtitle>This is a video record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/video/#{@video}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit video</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Videos"><%= @video.videos %></:item>
+</.list>
+
+<.back navigate={~p"/video"}>Back to video</.back>
+
+<.modal :if={@live_action == :edit} id="video-modal" show on_cancel={JS.patch(~p"/video/#{@video}")}>
+  <.live_component
+    module={PrototypeWeb.VideoLive.FormComponent}
+    id={@video.id}
+    title={@page_title}
+    action={@live_action}
+    video={@video}
+    patch={~p"/video/#{@video}"}
+  />
+</.modal>
